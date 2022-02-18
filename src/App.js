@@ -7,9 +7,11 @@ import Physics from "./pages/Physics";
 import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 import Layout from "./components/Layout";
-import Geometry from "./pages/calcs/math/geometry/Geometry";
-import Algebra from "./pages/calcs/math/algebra/Algebra";
 
+import Algebra from "./pages/calcs/math/algebra/Algebra";
+import QuadraticEquation from "./pages/calcs/math/algebra/QuadraticEquation";
+
+import Geometry from "./pages/calcs/math/geometry/Geometry";
 import CircleArea from "./pages/calcs/math/geometry/CircleArea";
 import Discriminant from "./pages/calcs/math/algebra/Discriminant";
 import TriangleArea from "./pages/calcs/math/geometry/TriangleArea";
@@ -29,6 +31,7 @@ function App() {
             </Route>
             <Route path="Algebra" element={<Algebra />}>
               <Route path="Discriminant" element={<Discriminant />} />
+              <Route path="QuadraticEquation" element={<QuadraticEquation />} />
             </Route>
           </Route>
           <Route path="Physics" element={<Physics />} />
