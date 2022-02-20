@@ -14,7 +14,6 @@ export default function QuadraticEquation() {
   function discriminant(a, b, c) {
     if (a === 0) return -1;
     const d = b * b - 4 * a * c;
-    console.log(d);
     return d;
   }
 
@@ -64,7 +63,6 @@ export default function QuadraticEquation() {
         x2: (-b - Math.sqrt(d)) / (2 * a),
       });
     }
-    console.log(state);
   }
 
   return (
