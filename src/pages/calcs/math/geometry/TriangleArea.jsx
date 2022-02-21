@@ -72,7 +72,7 @@ export default function TriangleArea() {
 
   return (
     <Container fluid="sm">
-      <h2>Площадь треугольника</h2>
+      <h3>Площадь треугольника</h3>
       <Tabs
         defaultActiveKey="height"
         id="uncontrolled-tab-example"

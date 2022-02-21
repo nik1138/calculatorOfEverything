@@ -43,7 +43,7 @@ export default function Discriminant() {
 
   return (
     <Container fluid="sm">
-      <h3>Нахождение корней квадратного уравнения</h3>
+      <h3>Нахождение дискриминанта квадратного уравнения</h3>
 
       <InputGroup size="md" className="mb-3">
         <Form.Control

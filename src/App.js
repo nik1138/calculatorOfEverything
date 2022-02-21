@@ -16,6 +16,7 @@ import CircleArea from "./pages/calcs/math/geometry/CircleArea";
 import Discriminant from "./pages/calcs/math/algebra/Discriminant";
 import TriangleArea from "./pages/calcs/math/geometry/TriangleArea";
 import CirclePerimeter from "./pages/calcs/math/geometry/CirclePerimeter";
+import Pythagoras from "./pages/calcs/math/geometry/Pythagoras";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="CircleArea" element={<CircleArea />} />
               <Route path="CirclePerimeter" element={<CirclePerimeter />} />
               <Route path="TriangleArea" element={<TriangleArea />} />
+              <Route path="Pythagoras" element={<Pythagoras />} />
             </Route>
             <Route path="Algebra" element={<Algebra />}>
               <Route path="Discriminant" element={<Discriminant />} />

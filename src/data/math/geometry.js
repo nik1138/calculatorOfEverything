@@ -11,6 +11,10 @@ const titles = [
     title: "TriangleArea",
     name: "площадь треугольника",
   },
+  {
+    title: "Pythagoras",
+    name: "Теорема Пифагора",
+  },
 ];
 
 export default titles;

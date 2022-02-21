@@ -21,7 +21,7 @@ export default function CircePerimeter() {
   }
   return (
     <Container fluid="sm">
-      <h2>Периметр круга</h2>
+      <h3>Периметр круга</h3>
       <Tabs
         defaultActiveKey="Radius"
         id="uncontrolled-tab-example"

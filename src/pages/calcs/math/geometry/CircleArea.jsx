@@ -32,17 +32,11 @@ export default function CircleArea() {
   }
   return (
     <Container fluid="sm">
-      <h2>Площадь круга</h2>
-      <Tabs
-        defaultActiveKey="Radius"
-        id="uncontrolled-tab-example"
-        className="mb-3"
-      >
+      <h3>Площадь круга</h3>
+      <Tabs defaultActiveKey="Radius" className="mb-3">
         <Tab eventKey="Radius" title="Через радиус">
           <InputGroup size="md" className="mb-3">
-            <InputGroup.Text id="inputGroup-sizing-default">
-              Радиус
-            </InputGroup.Text>
+            <InputGroup.Text id="Radius">Радиус</InputGroup.Text>
             <Form.Control
               aria-label="Radius"
               aria-describedby="inputGroup-radius"
@@ -52,9 +46,7 @@ export default function CircleArea() {
             />
           </InputGroup>
           <InputGroup size="md" className="mb-3">
-            <InputGroup.Text id="inputGroup-sizing-default">
-              Площадь
-            </InputGroup.Text>
+            <InputGroup.Text id="RadiusArea">Площадь</InputGroup.Text>
             <Form.Control
               type="number"
               placeholder="Площадь"
@@ -65,9 +57,7 @@ export default function CircleArea() {
         </Tab>
         <Tab eventKey="Diameter" title="Через диаметр">
           <InputGroup size="md" className="mb-3">
-            <InputGroup.Text id="inputGroup-sizing-default">
-              Диаметр
-            </InputGroup.Text>
+            <InputGroup.Text id="Diameter">Диаметр</InputGroup.Text>
             <Form.Control
               aria-label="Radius"
               aria-describedby="inputGroup-radius"
@@ -77,9 +67,7 @@ export default function CircleArea() {
             />
           </InputGroup>
           <InputGroup size="md" className="mb-3">
-            <InputGroup.Text id="inputGroup-sizing-default">
-              Площадь
-            </InputGroup.Text>
+            <InputGroup.Text id="DiameterArea">Площадь</InputGroup.Text>
             <Form.Control
               type="number"
               placeholder="Площадь"
