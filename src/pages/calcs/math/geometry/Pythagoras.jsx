@@ -1,7 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 import { InputGroup, Tab, Tabs, Form, Container } from "react-bootstrap";
 
 export default function Pythagoras() {
+  const [hypotenuseState, setHypotenuseState] = useState({
+    hypotenuse: "",
+    leg1: "",
+    leg2: "",
+  });
+
+  function hypotenuseLeg1Change(value) {
+    const leg2 = hypotenuseState.leg2;
+
+    if (!(value > 0)) {
+      setHypotenuseState({
+        hypotenuse: "Катет 1 не число или меньше 0",
+        leg1: "",
+        leg2: leg2,
+      });
+      return;
+    }
+
+    const leg1 = value;
+
+    if (!(leg2 > 0)) {
+      setHypotenuseState({
+        hypotenuse: "Катет 2 не число или меньше 0",
+        leg1: leg1,
+        leg2: "",
+      });
+      return;
+    }
+
+    setHypotenuseState({
+      hypotenuse: Math.sqrt(leg1 * leg1 + leg2 * leg2),
+      leg1: value,
+      leg2: leg2,
+    });
+  }
+
+  function hypotenuseLeg2Change(value) {
+    const leg1 = hypotenuseState.leg1;
+
+    if (!(value > 0)) {
+      setHypotenuseState({
+        hypotenuse: "Катет 2 не число или меньше 0",
+        leg1: leg1,
+        leg2: "",
+      });
+      return;
+    }
+
+    const leg2 = value;
+
+    if (!(value > 0)) {
+      setHypotenuseState({
+        hypotenuse: "Катет 1 не число или меньше 0",
+        leg1: "",
+        leg2: leg2,
+      });
+      return;
+    }
+    setHypotenuseState({
+      hypotenuse: Math.sqrt(leg1 * leg1 + leg2 * leg2),
+      leg1: leg1,
+      leg2: leg2,
+    });
+  }
+
   return (
     <Container fluid="sm">
       <h3>Теорема пифагора</h3>
@@ -12,8 +77,8 @@ export default function Pythagoras() {
             <Form.Control
               type="number"
               placeholder="Катет 1"
-              // value={radiusState.radius}
-              // onChange={(e) => handleRadiusChangeRadius(e.target.value)}
+              value={hypotenuseState.leg1}
+              onChange={(e) => hypotenuseLeg1Change(e.target.value)}
             />
           </InputGroup>
           <InputGroup size="md" className="mb-3">
@@ -21,8 +86,8 @@ export default function Pythagoras() {
             <Form.Control
               type="number"
               placeholder="Катет 2"
-              // value={radiusState.radius}
-              // onChange={(e) => handleRadiusChangeRadius(e.target.value)}
+              value={hypotenuseState.leg2}
+              onChange={(e) => hypotenuseLeg2Change(e.target.value)}
             />
           </InputGroup>
           <InputGroup size="md" className="mb-3">
@@ -31,7 +96,7 @@ export default function Pythagoras() {
               type="text"
               placeholder="Гипотенуза"
               readOnly
-              // value={radiusState.areaRadius}
+              value={hypotenuseState.hypotenuse}
               // onChange={(e) => handleRadiusChangeArea(e.target.value)}
             />
           </InputGroup>
