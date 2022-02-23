@@ -8,6 +8,12 @@ export default function Pythagoras() {
     leg2: "",
   });
 
+  const [legState, setLegState] = useState({
+    hypotenuse: "",
+    leg1: "",
+    leg2: "",
+  });
+
   function hypotenuseLeg1Change(value) {
     const leg2 = hypotenuseState.leg2;
 
@@ -67,6 +73,84 @@ export default function Pythagoras() {
     });
   }
 
+  function legChange(value) {
+    const hypotenuse = legState.hypotenuse;
+
+    if (!(value > 0)) {
+      setLegState({
+        hypotenuse: hypotenuse,
+        leg1: "",
+        leg2: "Катет не число или меньше 0",
+      });
+      return;
+    }
+
+    const leg1 = value;
+
+    if (!(hypotenuse > 0)) {
+      setLegState({
+        hypotenuse: "",
+        leg1: leg1,
+        leg2: "Гипотенуза не число или меньше 0",
+      });
+      return;
+    }
+
+    if (+leg1 > +hypotenuse) {
+      setLegState({
+        hypotenuse: hypotenuse,
+        leg1: hypotenuse,
+        leg2: "Катет не может быть больше гипотенузы",
+      });
+      return;
+    }
+
+    setLegState({
+      hypotenuse: hypotenuse,
+      leg1: leg1,
+      leg2: Math.sqrt(hypotenuse * hypotenuse - leg1 * leg1),
+    });
+  }
+
+  function hypotenuseChange(value) {
+    const leg1 = legState.leg1;
+
+    if (!(value > 0)) {
+      setLegState({
+        hypotenuse: "",
+        leg1: leg1,
+        leg2: "Гипотенуза не число или меньше 0",
+      });
+      return;
+    }
+
+    const hypotenuse = value;
+
+    if (!(leg1 > 0)) {
+      setLegState({
+        hypotenuse: hypotenuse,
+        leg1: "",
+        leg2: "Катет не число или меньше 0",
+      });
+      return;
+    }
+
+    if (+leg1 > +hypotenuse) {
+      setLegState({
+        hypotenuse: hypotenuse,
+        leg1: hypotenuse,
+        leg2: "Катет не может быть больше гипотенузы",
+      });
+      return;
+    }
+
+    setLegState({
+      hypotenuse: hypotenuse,
+      leg1: leg1,
+      leg2: Math.sqrt(hypotenuse * hypotenuse - leg1 * leg1),
+    });
+  }
+
   return (
     <Container fluid="sm">
       <h3>Теорема пифагора</h3>
@@ -97,7 +181,6 @@ export default function Pythagoras() {
               placeholder="Гипотенуза"
               readOnly
               value={hypotenuseState.hypotenuse}
-              // onChange={(e) => handleRadiusChangeArea(e.target.value)}
             />
           </InputGroup>
         </Tab>
@@ -107,8 +190,8 @@ export default function Pythagoras() {
             <Form.Control
               type="number"
               placeholder="Гипотенуза"
-              // value={diameterState.diameter}
-              // onChange={(e) => handleChangeDiameter(e.target.value)}
+              value={legState.hypotenuse}
+              onChange={(e) => hypotenuseChange(e.target.value)}
             />
           </InputGroup>
           <InputGroup size="md" className="mb-3">
@@ -116,8 +199,8 @@ export default function Pythagoras() {
             <Form.Control
               type="number"
               placeholder="Катет"
-              // value={diameterState.areaDiameter}
-              // onChange={(e) => handleChangeDiameterArea(e.target.value)}
+              value={legState.leg1}
+              onChange={(e) => legChange(e.target.value)}
             />
           </InputGroup>
           <InputGroup size="md" className="mb-3">
@@ -126,8 +209,7 @@ export default function Pythagoras() {
               type="text"
               placeholder="Катет"
               readOnly
-              // value={diameterState.areaDiameter}
-              // onChange={(e) => handleChangeDiameterArea(e.target.value)}
+              value={legState.leg2}
             />
           </InputGroup>
         </Tab>

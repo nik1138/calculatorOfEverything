@@ -33,7 +33,7 @@ export default function Layout() {
               <Image src={corgi} />
               <Card.Body>
                 <Card.Title>Это корги</Card.Title>
-                <Card.Text>А могла быть ваша реклама.</Card.Text>
+                <Card.Text>А почему бы тут не быть корги?</Card.Text>
               </Card.Body>
             </Card>
           </Col>
