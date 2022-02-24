@@ -1,6 +1,6 @@
 import React from "react";
-import TitlesBlock from "../components/TitlesBlock";
-import titles from "../data/physics/physics";
+import titles from "../../../data/physics/physics";
+import TitlesBlock from "../../../components/TitlesBlock";
 
 export default function Physics() {
   return (

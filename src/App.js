@@ -3,7 +3,6 @@ import "./styles/App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Math from "./pages/calcs/math/Math";
-import Physics from "./pages/Physics";
 import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 import Layout from "./components/Layout";
@@ -17,6 +16,8 @@ import Discriminant from "./pages/calcs/math/algebra/Discriminant";
 import TriangleArea from "./pages/calcs/math/geometry/TriangleArea";
 import CirclePerimeter from "./pages/calcs/math/geometry/CirclePerimeter";
 import Pythagoras from "./pages/calcs/math/geometry/Pythagoras";
+
+import Physics from "./pages/calcs/physics/Physics";
 
 function App() {
   return (
