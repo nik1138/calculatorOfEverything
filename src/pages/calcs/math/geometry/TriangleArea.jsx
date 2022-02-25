@@ -15,6 +15,13 @@ export default function TriangleArea() {
     area: "",
   });
 
+  const [angleState, setAngleState] = useState({
+    side1: 0,
+    side2: 0,
+    angle: 0,
+    area: "",
+  });
+
   function heightAreaChange(value) {
     setHeightArea({
       area: value * heightState.base * 0.5,
@@ -67,6 +74,135 @@ export default function TriangleArea() {
       sideB: b,
       sideC: c,
       area: Math.sqrt(p * (p - value) * (p - b) * (p - c)),
+    });
+  }
+
+  function side1Change(value) {
+    const side2 = angleState.side2;
+    const angle = angleState.angle;
+    if (!(value > 0)) {
+      setAngleState({
+        side1: "",
+        side2: side2,
+        angle: angle,
+        area: "Сторона 1 не число или меньше 0",
+      });
+      return;
+    }
+
+    const side1 = value;
+
+    if (!(side2 > 0)) {
+      setAngleState({
+        side1: side1,
+        side2: "",
+        angle: angle,
+        area: "Сторона 2 не число или меньше 0",
+      });
+      return;
+    }
+
+    if (angle % 1 !== 0) {
+      setAngleState({
+        side1: side1,
+        side2: side2,
+        angle: angle,
+        area: "Угол должен быть числом",
+      });
+      return;
+    }
+
+    setAngleState({
+      side1: side1,
+      side2: side2,
+      angle: "",
+      area: side1 * side2 * 0.5 * Math.sin(angle),
+    });
+  }
+
+  function side2Change(value) {
+    const side1 = angleState.side1;
+    const angle = angleState.angle;
+    if (!(value > 0)) {
+      setAngleState({
+        side1: side1,
+        side2: "",
+        angle: angle,
+        area: "Сторона 2 не число или меньше 0",
+      });
+      return;
+    }
+
+    const side2 = value;
+
+    if (!(side1 > 0)) {
+      setAngleState({
+        side1: "",
+        side2: side2,
+        angle: angle,
+        area: "Сторона 1 не число или меньше 0",
+      });
+      return;
+    }
+
+    if (angle % 1 !== 0) {
+      setAngleState({
+        side1: side1,
+        side2: side2,
+        angle: "",
+        area: "Угол должен быть числом",
+      });
+      return;
+    }
+
+    setAngleState({
+      side1: side1,
+      side2: side2,
+      angle: angle,
+      area: side1 * side2 * 0.5 * Math.sin(angle),
+    });
+  }
+
+  function angleChange(value) {
+    const side1 = angleState.side1;
+    const side2 = angleState.side2;
+
+    if (value % 1 !== 0) {
+      setAngleState({
+        side1: side1,
+        side2: side2,
+        angle: "",
+        area: "Угол должен быть числом",
+      });
+      return;
+    }
+    const angle = value;
+
+    if (!(side2 > 0)) {
+      setAngleState({
+        side1: side1,
+        side2: "",
+        angle: angle,
+        area: "Сторона 2 не число или меньше 0",
+      });
+      return;
+    }
+
+    if (!(side1 > 0)) {
+      setAngleState({
+        side1: "",
+        side2: side2,
+        angle: angle,
+        area: "Сторона 1 не число или меньше 0",
+      });
+      return;
+    }
+
+    setAngleState({
+      side1: side1,
+      side2: side2,
+      angle: angle,
+      area: side1 * side2 * 0.5 * Math.sin(angle),
     });
   }
 
@@ -175,8 +311,8 @@ export default function TriangleArea() {
               aria-describedby="inputGroup-radius"
               placeholder="Сторона A"
               type="number"
-              //   value={}
-              //   onChange={}
+              value={angleState.side1}
+              onChange={(e) => side1Change(e.target.value)}
             />
           </InputGroup>
           <InputGroup size="md" className="mb-3">
@@ -186,8 +322,8 @@ export default function TriangleArea() {
             <Form.Control
               type="number"
               placeholder="Сторона B"
-              //   value={1}
-              //   onChange={}
+              value={angleState.side2}
+              onChange={(e) => side2Change(e.target.value)}
             />
           </InputGroup>
           <InputGroup size="md" className="mb-3">
@@ -197,9 +333,14 @@ export default function TriangleArea() {
             <Form.Control
               type="number"
               placeholder="Угол между сторонами"
-              //   value={1}
-              //   onChange={}
+              value={angleState.angle}
+              onChange={(e) => angleChange(e.target.value)}
             />
+            <Form.Select>
+              <option disabled>Единицы измерения</option>
+              <option value="1">Радианы</option>
+              <option value="2">Градусы</option>
+            </Form.Select>
           </InputGroup>
           <InputGroup size="md" className="mb-3">
             <InputGroup.Text id="inputGroup-sizing-default">
@@ -209,8 +350,7 @@ export default function TriangleArea() {
               type="text"
               placeholder="Площадь"
               readOnly
-              //   value={1}
-              //   onChange={}
+              value={angleState.area}
             />
           </InputGroup>
         </Tab>
