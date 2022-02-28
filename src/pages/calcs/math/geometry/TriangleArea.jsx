@@ -20,6 +20,7 @@ export default function TriangleArea() {
     side2: 0,
     angle: 0,
     area: "",
+    unit: "deg",
   });
 
   function heightAreaChange(value) {
@@ -78,6 +79,7 @@ export default function TriangleArea() {
   }
 
   function side1Change(value) {
+    const unit = angleState.unit;
     const side2 = angleState.side2;
     const angle = angleState.angle;
     if (!(value > 0)) {
@@ -86,6 +88,7 @@ export default function TriangleArea() {
         side2: side2,
         angle: angle,
         area: "Сторона 1 не число или меньше 0",
+        unit: unit,
       });
       return;
     }
@@ -97,30 +100,36 @@ export default function TriangleArea() {
         side1: side1,
         side2: "",
         angle: angle,
+        unit: unit,
         area: "Сторона 2 не число или меньше 0",
       });
       return;
     }
 
-    if (angle % 1 !== 0) {
+    if (angle % angle !== 0) {
       setAngleState({
         side1: side1,
         side2: side2,
         angle: angle,
+        unit: unit,
         area: "Угол должен быть числом",
       });
       return;
     }
 
+    const radAngle = unit === "rad" ? angle : angle * (Math.PI / 180);
+
     setAngleState({
       side1: side1,
       side2: side2,
-      angle: "",
-      area: side1 * side2 * 0.5 * Math.sin(angle),
+      unit: unit,
+      angle: angle,
+      area: Math.abs(side1 * side2 * 0.5 * Math.sin(radAngle)),
     });
   }
 
   function side2Change(value) {
+    const unit = angleState.unit;
     const side1 = angleState.side1;
     const angle = angleState.angle;
     if (!(value > 0)) {
@@ -128,6 +137,7 @@ export default function TriangleArea() {
         side1: side1,
         side2: "",
         angle: angle,
+        unit: unit,
         area: "Сторона 2 не число или меньше 0",
       });
       return;
@@ -139,37 +149,43 @@ export default function TriangleArea() {
       setAngleState({
         side1: "",
         side2: side2,
+        unit: unit,
         angle: angle,
         area: "Сторона 1 не число или меньше 0",
       });
       return;
     }
 
-    if (angle % 1 !== 0) {
+    if (angle % angle !== 0) {
       setAngleState({
         side1: side1,
+        unit: unit,
         side2: side2,
         angle: "",
         area: "Угол должен быть числом",
       });
       return;
     }
+    const radAngle = unit === "rad" ? angle : angle * (Math.PI / 180);
 
     setAngleState({
       side1: side1,
+      unit: unit,
       side2: side2,
       angle: angle,
-      area: side1 * side2 * 0.5 * Math.sin(angle),
+      area: Math.abs(side1 * side2 * 0.5 * Math.sin(radAngle)),
     });
   }
 
   function angleChange(value) {
+    const unit = angleState.unit;
     const side1 = angleState.side1;
     const side2 = angleState.side2;
 
-    if (value % 1 !== 0) {
+    if (value % value !== 0) {
       setAngleState({
         side1: side1,
+        unit: unit,
         side2: side2,
         angle: "",
         area: "Угол должен быть числом",
@@ -181,6 +197,7 @@ export default function TriangleArea() {
     if (!(side2 > 0)) {
       setAngleState({
         side1: side1,
+        unit: unit,
         side2: "",
         angle: angle,
         area: "Сторона 2 не число или меньше 0",
@@ -191,6 +208,7 @@ export default function TriangleArea() {
     if (!(side1 > 0)) {
       setAngleState({
         side1: "",
+        unit: unit,
         side2: side2,
         angle: angle,
         area: "Сторона 1 не число или меньше 0",
@@ -198,11 +216,64 @@ export default function TriangleArea() {
       return;
     }
 
+    const radAngle = unit === "rad" ? angle : angle * (Math.PI / 180);
+
     setAngleState({
       side1: side1,
       side2: side2,
+      unit: unit,
       angle: angle,
-      area: side1 * side2 * 0.5 * Math.sin(angle),
+      area: Math.abs(side1 * side2 * 0.5 * Math.sin(radAngle)),
+    });
+  }
+
+  function handleUnitChange(value) {
+    const unit = value;
+    const side1 = angleState.side1;
+    const side2 = angleState.side2;
+    const angle = angleState.angle;
+
+    if (!(side2 > 0)) {
+      setAngleState({
+        side1: side1,
+        unit: unit,
+        side2: "",
+        angle: angle,
+        area: "Сторона 2 не число или меньше 0",
+      });
+      return;
+    }
+
+    if (!(side1 > 0)) {
+      setAngleState({
+        side1: "",
+        unit: unit,
+        side2: side2,
+        angle: angle,
+        area: "Сторона 1 не число или меньше 0",
+      });
+      return;
+    }
+
+    if (angle % angle !== 0) {
+      setAngleState({
+        side1: side1,
+        unit: unit,
+        side2: side2,
+        angle: "",
+        area: "Угол должен быть числом",
+      });
+      return;
+    }
+
+    const radAngle = unit === "rad" ? angle : angle * (Math.PI / 180);
+
+    setAngleState({
+      side1: side1,
+      side2: side2,
+      unit: unit,
+      angle: angle,
+      area: Math.abs(+side1 * +side2 * 0.5 * Math.sin(+radAngle)),
     });
   }
 
@@ -336,10 +407,13 @@ export default function TriangleArea() {
               value={angleState.angle}
               onChange={(e) => angleChange(e.target.value)}
             />
-            <Form.Select>
+            <Form.Select
+              value={angleState.unit}
+              onChange={(e) => handleUnitChange(e.target.value)}
+            >
               <option disabled>Единицы измерения</option>
-              <option value="1">Радианы</option>
-              <option value="2">Градусы</option>
+              <option value="rad">Радианы</option>
+              <option value="deg">Градусы</option>
             </Form.Select>
           </InputGroup>
           <InputGroup size="md" className="mb-3">
